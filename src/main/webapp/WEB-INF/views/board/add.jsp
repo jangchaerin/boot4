@@ -18,7 +18,7 @@
 <body>
 <c:import url="../temp/header.jsp"></c:import>
 
-	<form>
+	<form action="./add" method="post" enctype="multipart/form-data">
 	
 	<div class="container mt-4">
 		<div class="row mt-4 ">
@@ -28,16 +28,24 @@
 		</div>
 		<div class="mb-3">
 			<label for="exampleInputPassword1" class="form-label">Title</label> 
-			<input type="password" class="form-control" id="title">
+			<input type="text" class="form-control" id="title" name ="title">
 		</div>
 		<div class="mb-3">
 			<label for="exampleInputEmail1" class="form-label">Writer</label> 
-			<input type="text" class="form-control" id="writer" aria-describedby="emailHelp">
+			<input type="text" class="form-control" id="writer" aria-describedby="emailHelp" name = "writer">
 		</div>
 		<div class="mb-3">
 			<label for="exampleInputPassword1" class="form-label">Contents</label>
-			<textarea class="form-control" id="contents"></textarea>
+			<textarea class="form-control" id="contents" name="contents"></textarea>
 		</div>
+		
+		<div class="mb-3">
+        	<input class="form-control form-control-lg" type="file" name="files">
+        </div>
+       	<div class="mb-3">
+        	<input class="form-control form-control-lg" type="file" name="files">
+        </div>
+		
 
 <div class="row justify-content-end">
 		<button type="submit" class="col-1 btn btn-primary ">Submit</button>

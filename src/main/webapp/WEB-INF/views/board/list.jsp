@@ -57,7 +57,7 @@
 					<c:forEach items="${list}" var="list">
 						<tr>
 							<td>${list.num}</td>
-							<td>${list.title}</td>
+							<td><a href="./detail?num=${list.num}">${list.title}</a></td>
 							<td>${list.writer}</td>
 							<td>${list.contents}</td>
 							<td>${list.hit}</td>

@@ -1,6 +1,7 @@
 package com.chaerin.boot4.board;
 
 import java.sql.Date;
+import java.util.List;
 
 import lombok.Data;
 @Data
@@ -16,5 +17,7 @@ public class BoardVO {
 	private Long step;
 	private Long depth;
 	private Integer category;
+	
+	private List<BoardFilesVO> filesVOs;
 
 }

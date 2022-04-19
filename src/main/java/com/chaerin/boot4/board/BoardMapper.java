@@ -14,7 +14,7 @@ public interface BoardMapper {
 	//detail : getFileDetaile
 	public BoardFilesVO getFileDetail(BoardFilesVO boardFilesVO) throws Exception;
 	//list : getFileList
-	public List<BoardFilesVO> getFileList() throws Exception;
+	public List<BoardFilesVO> getFileList(BoardVO boardVO) throws Exception;
 	//insert : setFileAdd
 	public int setFileAdd(BoardFilesVO boardFilesVO) throws Exception;
 	//delete : setFileDelete

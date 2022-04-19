@@ -1,6 +1,7 @@
-package com.chaerin.boot3;
+package com.chaerin.boot4;
 
 import org.junit.jupiter.api.Test;
+
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
