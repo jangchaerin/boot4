@@ -29,7 +29,20 @@ public class BoardController {
 	public String getBoard() {
 		return "board";
 	}
-
+	
+	@GetMapping("fileDown")
+	public ModelAndView getFileDown(BoardFilesVO boardFilesVO)throws Exception{
+		ModelAndView mv = new ModelAndView();
+		boardFilesVO = boardService.getFileDetail(boardFilesVO);
+		
+		//속성명 fileVO는 파일다운클래스에서 이름을 그렇게 지정해줬기 때문이다.
+		mv.addObject("fileVO", boardFilesVO); 
+		//bean(클래스)의 이름과 동일하게
+		mv.setViewName("fileDown");
+		
+		return mv;
+	}
+	
 	@GetMapping("list")
 	public ModelAndView getList(Pager pager)throws Exception{
 		ModelAndView mv = new ModelAndView();

@@ -10,5 +10,9 @@
   		<typeAlias type="com.chaerin.boot4.board.BoardFilesVO" alias="BoardFilesVO"/>
   		<typeAlias type="com.chaerin.boot4.util.Pager" alias="Pager"/>
   		<typeAlias type = "java.lang.Long" alias="Long" />
+  		
+  		<typeAlias type="com.chaerin.boot4.member.MemberVO" alias="MemberVO"/>
+  		<typeAlias type="com.chaerin.boot4.member.MemberFileVO" alias="MemberFileVO"/>
+  		
   	</typeAliases>
   </configuration>

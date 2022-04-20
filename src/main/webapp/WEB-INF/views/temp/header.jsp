@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="C" uri="http://java.sun.com/jsp/jstl/core" %>
 
 
 <header class="container-fluid">
@@ -20,15 +21,25 @@
 					<li class="nav-item">
 						<a class="nav-link active" href="/board/list">Board</a>
 					</li>
-					<li class="nav-item dropdown">
-					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Dropdown </a>
-						<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-							<li><a class="dropdown-item" href="#">Action</a></li>
-							<li><a class="dropdown-item" href="#">Another action</a></li>
-							<li><hr class="dropdown-divider"></li>
-							<li><a class="dropdown-item" href="#">Something else here</a></li>
-						</ul>
+					<C:if test="${member eq null}">
+					<li class="nav-item">
+						<a class="nav-link active" href="/member/join">Join</a>
 					</li>
+					<li class="nav-item">
+						<a class="nav-link active" href="/member/login">Login</a>
+					</li>
+					</C:if>
+					<C:if test="${member ne null}">
+						<li class="nav-item">
+							<a class="nav-link active" href="/member/logout">Logout</a>
+						</li>
+						
+						<li class="nav-item">
+							<a class="nav-link active" href="/member/mypage">My page</a>
+						</li>
+					</C:if>
+					
+					
 					<li class="nav-item">
 						<a class="nav-link disabled">Disabled</a>
 					</li>

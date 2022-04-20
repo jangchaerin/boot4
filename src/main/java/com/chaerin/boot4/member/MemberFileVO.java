@@ -1,5 +1,4 @@
-package com.chaerin.boot4.board;
-
+package com.chaerin.boot4.member;
 
 import com.chaerin.boot4.util.FileVO;
 
@@ -8,9 +7,7 @@ import lombok.EqualsAndHashCode;
 
 @Data
 @EqualsAndHashCode(callSuper=false)
-public class BoardFilesVO extends FileVO{
+public class MemberFileVO extends FileVO{
+	private String id;
 
-	private Long num;
-
-	
 }

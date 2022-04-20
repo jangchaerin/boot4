@@ -2,6 +2,7 @@ package com.chaerin.boot4.board;
 
 import java.util.List;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -16,6 +17,10 @@ public class BoardService {
 	private BoardMapper boardMapper;
 	@Autowired
 	private FileManager fileManager;
+	
+	public BoardFilesVO getFileDetail(BoardFilesVO boardFilesVO)throws Exception{
+		return boardMapper.getFileDetail(boardFilesVO);
+	}
 	
 	//list : getList
 	public List<BoardVO> getList(Pager pager)throws Exception{

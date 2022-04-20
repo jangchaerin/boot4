@@ -7,7 +7,7 @@
 <mapper namespace="com.chaerin.boot4.board.BoardMapper">
 	<!-- boardfiles  -->
 	<select id="getFileDetail" parameterType="BoardFilesVO" resultType="BoardFilesVO">
-		SELECT * FROM BOARDFILES WHERE NUM=#{num}
+		SELECT * FROM BOARDFILES WHERE FILENUM=#{fileNum}
 	</select>
 	<select id="getFileList" parameterType="BoardVO" resultType="BoardFilesVO">
 		SELECT * FROM BOARDFILES WHERE NUM=#{num}
