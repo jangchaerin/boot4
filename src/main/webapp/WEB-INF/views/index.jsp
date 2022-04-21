@@ -52,9 +52,83 @@
 		</div>
 	</div>
 	
+	<div class="container">
+		<input type="text" id="d1">
+		<button id="btn">CLICK</button>
+		<button id="btn2">CLICK2</button>
+		<input type="checkbox" name="ch" class="ch" value="1">
+		<input type="checkbox" name="ch" class="ch" value="2">
+		<input type="checkbox" name="ch" class="ch" value="3">
+		<input type="checkbox" name="ch" class="ch" value="4">
+		<button id="btn3">CLICK3</button>
+		<div id="result">
+			
+		</div>
+	</div>
 	
-
-<c:import url="./temp/header_script.jsp"></c:import>
+	<c:import url="./temp/header_script.jsp"></c:import>
+	<script type="text/javascript">
+		
+		/*기존 js
+		const ch=document.getElementsByClassName("ch");
+		for (c of ch){		//똑같은 클래스가 여러개 일때는 그 각각의 요소에 이벤트를 걸어주기 위해 반복문 써줘야 함
+			c.addEventListener("click", function(){
+				alert(this.value);
+			})
+		}*/
+		
+		/*$('.ch').click(function(){ //하지만 jQuery에서는 반복문 안돌려도 된다. 4군데 동일하게 적용 됨
+			console.log(this.value);
+		}) */
+		
+		/*$('.ch').on({
+			click:function(){
+				console.log("click event");
+			},
+			change:function(){
+				console.log("change event");
+			}
+			
+		});*/
+		
+		$('.ch').click(function(e){
+			let c=$(this).prop("checked");
+			this.checked;
+			console.log(c);
+			$(".ch").prop("checked",true);
+		});
+		$('.ch').change(function(){
+			console.log("change test");
+		})
+		
+		$("#btn2").click(function(){
+			   $(".ch").each(function(idx,item){
+			      console.log("index:",idx);
+			      console.log("item:",item);
+			      console.log("value:",$(item).val());
+			   })
+			 });
+		$("#btn").click(function(){
+			   let v =$("#d1").val()
+			   console.log(v);
+			}); 
+		
+		/* $("#btn3").click(function(){
+			$("#result").append('<input type="checkbox" name="ch" class="ch" value="1">')
+		}) */
+		
+		$("#btn3").click(function(){
+			let r="<div>";
+			r = r+'<input type="checkbox" name="ch" class="ch" value="1">';
+			r = r+"</div>";
+			
+			$("#result").append(r);
+		});
+		
+		
+		
+		
+	</script>
 	
 </body>
 </html>
