@@ -21,6 +21,18 @@
 					<li class="nav-item">
 						<a class="nav-link active" href="/board/list">Board</a>
 					</li>
+					<li class="nav-item">
+						<a class="nav-link active" href="/product/list">Product</a>
+					</li>
+					
+					
+					
+					<li class="nav-item">
+						<a class="nav-link disabled">Disabled</a>
+					</li>
+				</ul>
+				<form class="d-flex">
+				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 					<C:if test="${member eq null}">
 					<li class="nav-item">
 						<a class="nav-link active" href="/member/join">Join</a>
@@ -38,16 +50,7 @@
 							<a class="nav-link active" href="/member/mypage">My page</a>
 						</li>
 					</C:if>
-					
-					
-					<li class="nav-item">
-						<a class="nav-link disabled">Disabled</a>
-					</li>
-				</ul>
-				<form class="d-flex">
-					<input class="form-control me-2" type="search" placeholder="Search"
-						aria-label="Search">
-					<button class="btn btn-outline-dark" type="submit">Search</button>
+					</ul>
 				</form>
 			</div>
 		</div>

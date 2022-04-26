@@ -14,5 +14,8 @@
   		<typeAlias type="com.chaerin.boot4.member.MemberVO" alias="MemberVO"/>
   		<typeAlias type="com.chaerin.boot4.member.MemberFileVO" alias="MemberFileVO"/>
   		
+  		<typeAlias type="com.chaerin.boot4.product.ProductVO" alias="ProductVO"/>
+  		<typeAlias type="com.chaerin.boot4.product.ProductFilesVO" alias="ProductFilesVO"/>
+  		
   	</typeAliases>
   </configuration>

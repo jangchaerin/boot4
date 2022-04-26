@@ -53,80 +53,84 @@
 	</div>
 	
 	<div class="container">
-		<input type="text" id="d1">
-		<button id="btn">CLICK</button>
-		<button id="btn2">CLICK2</button>
-		<input type="checkbox" name="ch" class="ch" value="1">
-		<input type="checkbox" name="ch" class="ch" value="2">
-		<input type="checkbox" name="ch" class="ch" value="3">
-		<input type="checkbox" name="ch" class="ch" value="4">
-		<button id="btn3">CLICK3</button>
-		<div id="result">
-			
-		</div>
+		<input type="text" id="v1">
+		<input type="checkbox" class="num" name="num" value="a">
+		<input type="checkbox" class="num" name="num" value="b">
+		<input type="checkbox" class="num" name="num" value="c">
+		<input type="checkbox" class="num" name="num" value="d">
+		<button id="btn1">GET</button>
+		<button id="btn2">POST</button>
+		<button id="btn3">AJAX</button>
 	</div>
 	
 	<c:import url="./temp/header_script.jsp"></c:import>
 	<script type="text/javascript">
-		
-		/*기존 js
-		const ch=document.getElementsByClassName("ch");
-		for (c of ch){		//똑같은 클래스가 여러개 일때는 그 각각의 요소에 이벤트를 걸어주기 위해 반복문 써줘야 함
-			c.addEventListener("click", function(){
-				alert(this.value);
-			})
-		}*/
-		
-		/*$('.ch').click(function(){ //하지만 jQuery에서는 반복문 안돌려도 된다. 4군데 동일하게 적용 됨
-			console.log(this.value);
-		}) */
-		
-		/*$('.ch').on({
-			click:function(){
-				console.log("click event");
-			},
-			change:function(){
-				console.log("change event");
-			}
-			
-		});*/
-		
-		$('.ch').click(function(e){
-			let c=$(this).prop("checked");
-			this.checked;
-			console.log(c);
-			$(".ch").prop("checked",true);
-		});
-		$('.ch').change(function(){
-			console.log("change test");
+	
+		$('#btn1').click(function(){
+			let v=$('#v1').val();
+			console.log(v);
+			$.get("./getTest?msg="+v,function(data){ 
+				console.log("응답완료");
+				console.log(data.trim());
+			}) 
 		})
 		
+		//btn2를 click하면 v1의 입력된 값을 /postTest 요청시 파라미터 전송
+		//응답으로 getResult.jsp를 받기
 		$("#btn2").click(function(){
-			   $(".ch").each(function(idx,item){
-			      console.log("index:",idx);
-			      console.log("item:",item);
-			      console.log("value:",$(item).val());
-			   })
-			 });
-		$("#btn").click(function(){
-			   let v =$("#d1").val()
-			   console.log(v);
-			}); 
+			let v = $("#v1").val();
+			$.post("./postTest",{msg:v},function(result){
+				console.log(result.trim());
+			});			
+		})
 		
 		/* $("#btn3").click(function(){
-			$("#result").append('<input type="checkbox" name="ch" class="ch" value="1">')
+			let v = $("#v1").val();
+			$.ajax({
+				method:"POST",
+				url:"./postTest",
+				data:{
+					msg:v
+				},
+				success:function(d){
+					console.log(d.trim());
+				},
+				error:function(){
+					alert('에러발생');
+				}
+			})
 		}) */
-		
 		$("#btn3").click(function(){
-			let r="<div>";
-			r = r+'<input type="checkbox" name="ch" class="ch" value="1">';
-			r = r+"</div>";
+			let ar=[1,2,3];
+			let nums = [];
 			
-			$("#result").append(r);
-		});
-		
-		
-		
+			$(".num").each(function(idx,item){
+				if($(item).prop("checked")){
+					console.log($(item).val());
+					nums.push($(item).val());
+					
+				}
+			
+			});
+			
+			let v = $("#v1").val();
+			$.ajax({
+				type:"POST",
+				url:"./arrayTest",
+				traditional:true,
+				data:{
+					msg:v,
+					numbers:ar,
+					nums:nums 		//파라미터이름:파라미터값
+				},
+				success:function(d){
+					console.log(d.trim());
+				},
+				error:function(){
+					alert('에러발생');
+				}
+			})
+		}) 
 		
 	</script>
 	
