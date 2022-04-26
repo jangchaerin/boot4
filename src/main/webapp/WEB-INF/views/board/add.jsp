@@ -13,6 +13,11 @@
 	rel="stylesheet"
 	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
 	crossorigin="anonymous">
+<c:import url="../temp/header_script.jsp"></c:import>
+
+<!-- 에디터 -->
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 <title>Insert title here</title>
 </head>
 <body>
@@ -53,9 +58,57 @@
 		</form>
 	</div>
 
-	<c:import url="../temp/header_script.jsp"></c:import>
-
+	
 	<script type="text/javascript">
+			
+	     $('#contents').summernote({
+	         height: 400,
+	         placeholder:"내용을 입력해주세요.",
+	         callbacks:{
+	            onImageUpload:function(files){
+	               //files 업로드한 이미지 파일객체
+	               let formData = new FormData();
+	               formData.append("files", files[0]);
+	               
+	               // 주소 : /board/summerFileUpload
+	               $.ajax({
+	            	  type:"POST",
+	            	  url : "./summerFileUpload",
+	            	  processData:false,
+	            	  contentType:false,
+	            	  data:formData,
+	            	  success:function(data){
+	            		  $("#contents").summernote('editor.insertImage',data.trim());
+	            	  }
+	            	   
+	               });
+	               
+	            },//onImageUpload 끝
+	            onMediaDelete : function(files){
+	            	let fileName = $(files[0]).attr("src");
+	            	console.log(fileName);
+	            	$.ajax({
+	            		type:"GET",
+	            		url:"./summerFileDelete",
+	            		data:{
+	            			fileName:fileName
+	            		},
+	            		success:function(data){
+	            			console.log(data);
+	            		}
+	            			
+	        
+	            		
+	            		
+	            	});
+	            }//onMediaDelete
+	            
+	            
+	            
+	         }
+	      });
+		
+		
 		let count=0;
 		$("#fileAdd").click(function(){
 			if(count>4){
