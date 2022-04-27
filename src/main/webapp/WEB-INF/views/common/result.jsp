@@ -10,6 +10,7 @@
 <h1>Result Page</h1>
 	<script type="text/javascript">
 		alert('${message}');
+	
 		window.location.href="${path}";
 	</script>
 	

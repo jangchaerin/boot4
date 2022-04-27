@@ -1,5 +1,7 @@
 package com.chaerin.boot4.member;
 
+import java.util.List;
+
 import lombok.Data;
 
 @Data
@@ -11,4 +13,6 @@ public class MemberVO {
 	private String phone;
 	
 	private MemberFileVO memberFileVO;
+	
+	private List<RoleVO> roleVOs;
 }

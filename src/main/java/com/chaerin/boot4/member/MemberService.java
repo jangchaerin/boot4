@@ -1,8 +1,11 @@
 package com.chaerin.boot4.member;
 
 import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -16,9 +19,20 @@ public class MemberService {
 	@Autowired
 	private FileManager fileManager;
 	
+	//properties 파일의 key를 이용해서 member.role.member의 속성값 반환
+	@Value("${member.role.member}")
+	private String memberRole;
+	
 	public int setJoin(MemberVO memberVO, MultipartFile file)throws Exception{
 		int result=memberMapper.setJoin(memberVO);
 		
+		//MEMBERROLE 테이블 INSERT
+		Map<String, String> map= new HashMap<>();
+		map.putIfAbsent("id", memberVO.getId());        //arrayList는 ADD, map은 PUT
+		map.put("roleName", memberRole);
+		
+		
+		result =memberMapper.setRoleJoin(map);
 	
 		
 		

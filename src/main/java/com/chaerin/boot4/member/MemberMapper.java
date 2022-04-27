@@ -1,5 +1,7 @@
 package com.chaerin.boot4.member;
 
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -24,7 +26,7 @@ public interface MemberMapper {
 	
 	//memberrole
 	//insert
-	
+	public int setRoleJoin(Map<String, String> map)throws Exception;
 	
 	
 	
