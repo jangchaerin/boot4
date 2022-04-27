@@ -19,6 +19,9 @@ public class MemberService {
 	public int setJoin(MemberVO memberVO, MultipartFile file)throws Exception{
 		int result=memberMapper.setJoin(memberVO);
 		
+	
+		
+		
 		if(!file.isEmpty()) {
 			String fileName=fileManager.fileSave(file, "resources/upload/member");
 			

@@ -6,6 +6,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 @Mapper 
 public interface MemberMapper {
+	//member
 	//insert : join
 	public int setJoin(MemberVO memberVO) throws Exception;
 	
@@ -20,6 +21,12 @@ public interface MemberMapper {
 	
 	//delete : 회원탈퇴
 	public int setDelete(MemberVO memberVO)throws Exception;
+	
+	//memberrole
+	//insert
+	
+	
+	
 	
 	//MemberFile
 	//insert
