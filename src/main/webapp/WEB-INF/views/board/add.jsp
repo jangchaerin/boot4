@@ -37,9 +37,8 @@
 				<input type="text" class="form-control" id="title" name="title">
 			</div>
 			<div class="mb-3">
-				<label for="exampleInputEmail1" class="form-label">Writer</label> <input
-					type="text" class="form-control" id="writer"
-					aria-describedby="emailHelp" name="writer">
+				<label for="exampleInputEmail1" class="form-label">Writer</label> 
+				<input type="text" class="form-control" id="writer" aria-describedby="emailHelp" value="${member.name}" readonly="readonly" name="writer">
 			</div>
 			<div class="mb-3">
 				<label for="exampleInputPassword1" class="form-label">Contents</label>

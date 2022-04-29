@@ -17,5 +17,9 @@ public interface ProductMapper {
 	
 	public Long totalCount(Pager pager) throws Exception; 
 	
+	public ProductVO getDetail(ProductVO productVO) throws Exception;
+	
+	public int setUpdate(ProductVO productVO) throws Exception;
+	
 	
 }

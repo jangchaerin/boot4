@@ -5,9 +5,27 @@
     
 <mapper namespace="com.chaerin.boot4.product.ProductMapper">
 
+	<update id="setUpdate" parameterType="ProductVO">
+		UPDATE PRODUCT SET PRODUCTNAME=#{productName}, PRODUCTCOUNT=#{productCount}, PRODUCTPRICE=#{productPrice}
+		WHERE PRODUCTNUM=#{productNum}
+	
+	</update>
+
+
+	
+	<select id="getDetail" parameterType="ProductVO" resultMap="listResult">
+		SELECT P.*,PF.*
+		FROM 
+			PRODUCT P
+			LEFT JOIN 
+			PRODUCTFILES PF
+			USING(PRODUCTNUM)
+		WHERE PRODUCTNUM =#{productNum}
+	</select>
+
 	<insert id="add" parameterType="ProductVO" useGeneratedKeys="true" keyProperty="productNum">
 		INSERT INTO PRODUCT
-		VALUES(#{productNum}, #{productName}, #{productPrice}, #{productCount}, #{productDetail})	
+		VALUES(#{productNum}, #{productName}, #{productPrice}, #{productCount}, #{productDetail}, #{id},#{sale})	
 	</insert>
 	
 	<insert id="fileAdd" parameterType="ProductFilesVO">
@@ -16,14 +34,25 @@
 	</insert>
 	
 	<select id="list"  parameterType="Pager" resultMap="listResult">
-SELECT P.*, F.*
+		SELECT P.*, F.*
 		FROM 
 		(
 			SELECT 
 			* 
 		 	FROM PRODUCT 
-		 	WHERE PRODUCTNUM>0 and 
-		 		 
+		 	WHERE PRODUCTNUM>0 
+		 	
+		 	<choose>
+		 		<when test="id != null">
+		 			and ID=#{id}
+		 		</when>
+		 		<otherwise>
+		 			and SALE=1
+		 		</otherwise>
+		 	</choose>
+		 	
+	
+		 	and 
 			<choose>
 				<when test="kind == 'col1'">
 					PRODUCTNAME
@@ -48,14 +77,39 @@ SELECT P.*, F.*
     	<result column="productPrice" property="productPrice"/>
     	<result column="productCount" property="productCount"/>
     	<result column="productDetail" property="productDetail"/>
+    	<result column="id" property="id"/>
+    	<result column="sale" property="sale"/>
     	<collection property="productFilesVO" javaType="List" ofType="ProductFilesVO">
     		<id column="fileNum" property="fileNum"/>
     		<result column="fileName" property="fileName"/>
     		<result column="oriName" property="oriName"/>
     	</collection>
     </resultMap>
+    
+    
+    
+    
 	<select id="totalCount" parameterType="Pager" resultType="Long">
-		SELECT COUNT(PRODUCTNUM) FROM PRODUCT 
+	
+		SELECT 
+			COUNT(PRODUCTNUM) 
+		 	FROM PRODUCT 
+		 	WHERE PRODUCTNUM>0
+		 		 
+		 	<if test="id != null">
+		 		and ID=#{id}
+		 	</if>
+		 	and 
+				
+		<choose>
+				<when test="kind == 'col1'">
+					PRODUCTNAME
+				</when>
+				<otherwise>
+					PRODUCTDETAIL
+				</otherwise>
+			</choose>
+			LIKE CONCAT('%',#{search},'%')
 	</select>
  
 </mapper>

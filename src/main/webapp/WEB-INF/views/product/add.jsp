@@ -37,12 +37,10 @@
 						Add</h4>
 				</div>
 			</div>
-			
-			<div class="row" id="list">
-				
-			</div>
-			
-			
+
+			<div class="row" id="list"></div>
+
+
 			<div class="mb-3">
 				<label for="exampleInputPassword1" class="form-label">Name</label> <input
 					type="text" class="form-control" id="name" name="productName">
@@ -61,18 +59,28 @@
 				<label for="exampleInputPassword1" class="form-label">Detail</label>
 				<textarea class="form-control" id="detail" name="productDetail"></textarea>
 			</div>
-
+			<div class="mb-3">
+				<div class="form-check">
+					<input class="form-check-input sale" type="radio"
+						name="sale" value="1" id="flexRadioDefault1"> <label
+						class="form-check-label" for="flexRadioDefault1"> 판매</label>
+				</div>
+				<div class="form-check">
+					<input class="form-check-input sale" type="radio"
+						name="sale" value="0" id="flexRadioDefault2" checked> <label
+						class="form-check-label" for="flexRadioDefault2"> 판매중지</label>
+				</div>
+			</div>
 
 
 			<div id="fileResult"></div>
 
 			<button type="button" id="fileAdd" class="btn btn-primary">FileAdd</button>
-			<div id="fileResult">
-			
-			</div>
+			<div id="fileResult"></div>
 
 			<div class="row justify-content-end mt-5">
-				<button type="button" id="add" class="col-1 btn btn-primary">Product Add</button>
+				<button type="button" id="add" class="col-1 btn btn-primary">Product
+					Add</button>
 			</div>
 
 		</form>
@@ -83,94 +91,100 @@
 	<script type="text/javascript">
 		//pager
 		//let pn=1;
-		$("#list").on("click",".pager",function(){
-		
-			let checkPn=$(this).attr("data-pn");
-			if(checkPn>0){
+		$("#list").on("click", ".pager", function() {
+
+			let checkPn = $(this).attr("data-pn");
+			if (checkPn > 0) {
 				//pn=checkPn;
 				list(checkPn);
-			}else{
+			} else {
 				//이전블럭과 다음블럭이 x
 				alert("last page")
 			}
 		})
-	
+
 		//list ajax url:ajaxList, Get
 		list(1);
-		
-		function list(pn){
+
+		function list(pn) {
 			console.log("start");
 			$.ajax({
 				type : "GET",
 				url : "./ajaxList",
-				data:{
-					pn:pn,
-					perPage:5
-					
+				data : {
+					pn : pn,
+					perPage : 5
+
 				},
-				success:function(data){
-					
+				success : function(data) {
+
 					$("#list").html(data.trim());
 				}
 			});
 		}
-	
+
 		//add
-		$("#add").click(function(){
-			let formData=new FormData();
-			let name=$("#name").val();
-			let price=$("#price").val();
-			let count=$("#count").val();
-			let detail=	$("#detail").summernote("code");	//$("#detail").val();
-			$(".files").each(function(idx,item){
-				if(item.files.length>0){
-					console.log(idx);					//index번호
-					console.log(item);					//<input type="file">
-					console.log(item.files);			//input태그의 file List
-					console.log(item.files[0]);			//files list 중 첫번쨰 파일
-					console.log("length:",item.files.length);		//file의 길이
-					console.log(item.files[0].name);	//files list중 첫번째 파일의 이름
-					//formData.append("파라미터명",값)
-					formData.append("files",item.files[0]);
+		$("#add").click(function() {
+			let formData = new FormData();
+			let name = $("#name").val();
+			let price = $("#price").val();
+			let count = $("#count").val();
+			let detail = $("#detail").summernote("code"); //$("#detail").val();
+			let sale = 0;
+			$(".sale").each(function(idx,item){
+				if($(item).prop("checked")){
+					sale=$(item).val();
 				}
-			});		//each끝 (반복문이 끝나면 formData에 파일이 append 되어있다.)
+			})
 			
+			$(".files").each(function(idx, item) {
+				if (item.files.length > 0) {
+					console.log(idx); //index번호
+					console.log(item); //<input type="file">
+					console.log(item.files); //input태그의 file List
+					console.log(item.files[0]); //files list 중 첫번쨰 파일
+					console.log("length:", item.files.length); //file의 길이
+					console.log(item.files[0].name); //files list중 첫번째 파일의 이름
+					//formData.append("파라미터명",값)
+					formData.append("files", item.files[0]);
+				}
+			}); //each끝 (반복문이 끝나면 formData에 파일이 append 되어있다.)
+
 			//나머지 애들을 formData에 append시켜줌
 			formData.append("productName", name);
 			formData.append("productPrice", price);
 			formData.append("productCount", count);
 			formData.append("productDetail", detail);
-			
-			
+			formData.append("sale", sale);
 			$.ajax({
-				type:"POST",
-				url :"./add",
-				processData:false,
-				contentType:false,
-				data:formData/*{
-					productName:name,
-					productPrice:price,
-					productCount:count,
-					productDetail:detail
-				}*/,
-				success:function(data){
-					if(data.trim()==1){
+				type : "POST",
+				url : "./add",
+				processData : false,
+				contentType : false,
+				data : formData/*{
+									productName:name,
+									productPrice:price,
+									productCount:count,
+									productDetail:detail
+								}*/,
+				success : function(data) {
+					if (data.trim() == 1) {
 						alert("상품등록 완료");
 						list();
 						$("#name").val("");
 						$("#price").val("");
 						$("#count").val("");
-						$("#detail").summernote("code","");
-					}else{
+						$("#detail").summernote("code", "");
+					} else {
 						alert("상품등록 실패")
-					}	
+					}
 				},
-				error:function(){
+				error : function() {
 					alert("에러발생");
 				}
 			})
 		})
-	
+
 		//summernote
 		$(document).ready(function() {
 			$('#detail').summernote({

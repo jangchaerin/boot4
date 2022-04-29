@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.chaerin.boot4.board.BoardFilesVO;
@@ -11,6 +12,7 @@ import com.chaerin.boot4.util.FileManager;
 import com.chaerin.boot4.util.Pager;
 
 @Service
+@Transactional(rollbackFor = Exception.class)
 public class ProductService {
 
 	@Autowired
@@ -50,5 +52,14 @@ public class ProductService {
 		pager.makeNum(productMapper.totalCount(pager));
 		return productMapper.list(pager);
 	}
-
+	
+	public ProductVO getDetail(ProductVO productVO) throws Exception{
+		return productMapper.getDetail(productVO);
+	}
+	
+	public int setUpdate(ProductVO productVO) throws Exception{
+		return productMapper.setUpdate(productVO);
+	}
+	
+	
 }

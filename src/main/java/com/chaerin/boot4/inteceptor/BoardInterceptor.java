@@ -12,7 +12,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import com.chaerin.boot4.member.MemberVO;
 import com.chaerin.boot4.member.RoleVO;
 @Component
-public class MemberInterceptor implements HandlerInterceptor{
+public class BoardInterceptor implements HandlerInterceptor{
 	
 	@Value("${member.role.member}")
 	private String roleName;
@@ -21,7 +21,7 @@ public class MemberInterceptor implements HandlerInterceptor{
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 		boolean check=false;
-		
+		System.out.println("Board Interceptor");
 		HttpSession session = request.getSession();
 		MemberVO memberVO = (MemberVO) session.getAttribute("member");
 		if (memberVO != null) {
@@ -38,8 +38,8 @@ public class MemberInterceptor implements HandlerInterceptor{
 			// forward
 
 			// mv.addObject("키",value)
-			request.setAttribute("msg", "권한이 없습니다.");
-			request.setAttribute("path", "../");
+			request.setAttribute("msg", "권한이 없습니다. 로그인 하세요.");
+			request.setAttribute("path", "../member/login");
 
 			// mv.setViewName();
 			// WEB-INF/views 경로와 .jsp 까지 직접작성

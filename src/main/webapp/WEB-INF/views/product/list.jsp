@@ -7,21 +7,22 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<!-- Bootstrap CSS -->
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
-	crossorigin="anonymous">
+<c:import url="../temp/header_css.jsp"></c:import>
 <title>Insert title here</title>
 </head>
+<!-- 	<style type="text/css">
+		.detail{
+		curcor:pointer;
+		}
+	</style> -->
 <body>
 	<c:import url="../temp/header.jsp"></c:import>
+	
 <div class="container mt-4">
       <div class="row row-cols-1 row-cols-md-3 g-4">
          <c:forEach items="${list}" var="vo">
             <div class="col">
-               <div class="card">
+               <div class="card detail" data-num="${vo.productNum}">
                   <img src="../resources/upload/product/${vo.productFilesVO[0].fileName}"
                      class="card-img-top" alt="">
                   <div class="card-body">
@@ -39,9 +40,9 @@
          </c:forEach>
       </div>
 		
-		<div class="row justify-content-end">
+	<!-- 	<div class="row justify-content-end">
 			<a href="./add" type="button" class=" col-1 btn btn-primary btn">Product Add</a>
-		</div>
+		</div> -->
 		
 	
 	<nav aria-label="Page navigation example">
@@ -64,14 +65,20 @@
 		  </ul>
 		</nav>
 
-
-
 	</div>
 
 
-<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-		integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-		crossorigin="anonymous"></script>
+<c:import url="../temp/header_script.jsp"></c:import>
+
+<script type="text/javascript">
+	$(".detail").click(function(){
+		let num=$(this).attr("data-num");
+		location.href="./detail?productNum="+num
+	})
+	
+	
+</script>
+
+
 </body>
 </html>

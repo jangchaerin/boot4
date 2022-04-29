@@ -6,8 +6,9 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.chaerin.boot4.inteceptor.AdminInterceptor;
-import com.chaerin.boot4.inteceptor.MemberInterceptor;
+import com.chaerin.boot4.inteceptor.BoardInterceptor;
 import com.chaerin.boot4.inteceptor.SellerInterceptor;
+import com.chaerin.boot4.inteceptor.WriterCheckInterceptor;
 @Configuration
 public class InterceptorConfig implements WebMvcConfigurer{
 	
@@ -16,7 +17,9 @@ public class InterceptorConfig implements WebMvcConfigurer{
 	@Autowired
 	private AdminInterceptor adminInterceptor;
 	@Autowired
-	private MemberInterceptor memberInterceptor;
+	private BoardInterceptor boardInterceptor;
+	@Autowired
+	private WriterCheckInterceptor writerCheckInterceptor;
 	
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
@@ -29,9 +32,19 @@ public class InterceptorConfig implements WebMvcConfigurer{
 		registry.addInterceptor(adminInterceptor)
 				.addPathPatterns("/admin/manage");
 		
-		registry.addInterceptor(memberInterceptor)
+		registry.addInterceptor(boardInterceptor)
 				.addPathPatterns("/board/*")
 				.excludePathPatterns("/board/list");
+		
+		registry.addInterceptor(writerCheckInterceptor)
+				.addPathPatterns("/board/update")
+				.addPathPatterns("/board/delete");
+		
+				
+		
+		
+		
+		
 				
 		//제외할 url
 				//.excludePathPatterns("")
@@ -43,6 +56,11 @@ public class InterceptorConfig implements WebMvcConfigurer{
 		
 		
 		//WebMvcConfigurer.super.addInterceptors(registry); ->오버라이딩할떄 자동으로 만들어진건데 안해줘도됨
+		
+	}
+
+	private void addPathPatterns(String string) {
+		// TODO Auto-generated method stub
 		
 	}
 

@@ -18,37 +18,15 @@
 <body>
 <c:import url="../temp/header.jsp"></c:import>
 
-<div class= "container">
-	<c:import url="../common/productList.jsp"></c:import>
-	<form id="frm" action="./manage">
-		<input type="hidden" id="pn" name="pn" value="${pager.pn}">
-	
-	</form>
+<c:import url="./temp_detail.jsp"></c:import> <!-- 공통으로 하는거 import해오기 -->
 
 
-<div class="row justify-content-end">
-			<a href="./add" type="button" class=" col-1 btn btn-primary btn">Product Add</a>
-		</div>
 
-</div>
+
+
+
 
 <c:import url="../temp/header_script.jsp"></c:import>
 
-<script type="text/javascript">
-	$(".pager").click(function(){
-		let pn=$(this).attr("pn");
-	$("#pn").val(pn);
-	$("#frm").submit();
-	})
-
-$(".detail").click(function(){
-let num= $(this).attr("data-num");
-location.href="./manageDetail?productNum="+num;
-});
-
-
-</script>
-		
-		
 </body>
 </html>
