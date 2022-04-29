@@ -21,5 +21,9 @@ public interface ProductMapper {
 	
 	public int setUpdate(ProductVO productVO) throws Exception;
 	
+	public int setFileDelete(ProductFilesVO productFilesVO)throws Exception;
+	
+	public ProductFilesVO getFileDetail(ProductFilesVO productFilesVO)throws Exception;
+	
 	
 }

@@ -29,7 +29,8 @@
 	<div class="container mt-4">
 
 
-	<form action="./update" method="post">
+	<form action="./update" method="post" enctype="multipart/form-data">
+	
 	<div class="container">
 
 			<div class="container mt-4">
@@ -40,7 +41,7 @@
 					</div>
 				</div>
 				<div class="mb-3">
-					<input type="hidden" name="num" value="${vo.productNum}">
+					<input type="hidden" name="productNum" value="${vo.productNum}">
 					<label for="exampleInputPassword1" class="form-label">NAME</label>
 					<input type="text" class="form-control" id="productName" name="productName"
 						value="${vo.productName }">
@@ -69,21 +70,28 @@
 			<div class="mb-3">
 				<div class="form-check">
 					<input class="form-check-input sale" type="radio"
-						name="sale" value="1" id="flexRadioDefault1"> <label
+						name="sale" value="1" ${vo.sale eq 1 ? 'checked':''}  id="flexRadioDefault1"> <label
 						class="form-check-label" for="flexRadioDefault1"> 판매</label>
 				</div>
 				<div class="form-check">
 					<input class="form-check-input sale" type="radio"
-						name="sale" value="0" id="flexRadioDefault2" checked> <label
+						name="sale" value="0" id="flexRadioDefault2" ${vo.sale eq 0 ? 'checked':''}> <label
 						class="form-check-label" for="flexRadioDefault2"> 판매중지</label>
 				</div>
 			</div>
 
-
-			<div id="fileResult"></div>
-
 			<button type="button" id="fileAdd" class="btn btn-primary">FileAdd</button>
+	
+	<div>
+	<c:forEach items="${vo.productFilesVO }" var="fileVO">
+		<h4>${fileVO.oriName}<button type="button" class="del" data-num="${fileVO.fileNum}">Delete</button></h4>
+	</c:forEach>
+	</div>
+
+
 			<div id="fileResult"></div>
+
+			
 
 			
 		<div class="row justify-content-end">
@@ -99,6 +107,8 @@
 <script type="text/javascript" src="../js/summernote.js"></script>   <!-- summernote -->
 <script type="text/javascript">
 	summernoteInit("detail","${vo.productDetail}");
+	fileAddInit(${vo.productFilesVO.size()})		//원래 있던 파일 갯수 매개변수로 넘겨줌
+	 fileDelteInit();
 </script>
 
 

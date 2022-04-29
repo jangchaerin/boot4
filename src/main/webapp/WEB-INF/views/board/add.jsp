@@ -57,75 +57,13 @@
 		</form>
 	</div>
 
-	
+	<script type="text/javascript" src="../resources/js/fileAdd.js"></script>
+	<script type="text/javascript" src="../js/summernote.js"></script>
 	<script type="text/javascript">
 			
-	     $('#contents').summernote({
-	         height: 400,
-	         placeholder:"내용을 입력해주세요.",
-	         callbacks:{
-	            onImageUpload:function(files){
-	               //files 업로드한 이미지 파일객체
-	               let formData = new FormData();
-	               formData.append("files", files[0]);
-	               
-	               // 주소 : /board/summerFileUpload
-	               $.ajax({
-	            	  type:"POST",
-	            	  url : "./summerFileUpload",
-	            	  processData:false,
-	            	  contentType:false,
-	            	  data:formData,
-	            	  success:function(data){
-	            		  $("#contents").summernote('editor.insertImage',data.trim());
-	            	  }
-	            	   
-	               });
-	               
-	            },//onImageUpload 끝
-	            onMediaDelete : function(files){
-	            	let fileName = $(files[0]).attr("src");
-	            	console.log(fileName);
-	            	$.ajax({
-	            		type:"GET",
-	            		url:"./summerFileDelete",
-	            		data:{
-	            			fileName:fileName
-	            		},
-	            		success:function(data){
-	            			console.log(data);
-	            		}
-	            			
-	        
-	            		
-	            		
-	            	});
-	            }//onMediaDelete
-	            
-	            
-	            
-	         }
-	      });
+	    summernoteInit("contents","");		
 		
 		
-		let count=0;
-		$("#fileAdd").click(function(){
-			if(count>4){
-				alert("5개 까지 가능합니다.");
-				return;
-			} 
-			let f= '<div class="input-group">';
-			f=f+' <input class="form-control form-control-lg" id="formFileSm" type="file" name="files">';
-			f=f+'<button class="btn btn-outline-secondary del" type="button">X</button>';
-			f=f+'</div>';
-			$("#fileResult").append(f);
-			count++;
-		});
-		
-		$("#fileResult").on("click", ".del",function(){
-			$(this).parent().remove();
-			count--;
-		});
 		
 		
 	</script>

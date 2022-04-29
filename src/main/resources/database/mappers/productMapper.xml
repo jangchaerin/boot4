@@ -4,14 +4,24 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
     
 <mapper namespace="com.chaerin.boot4.product.ProductMapper">
+	
+	<select id="getFileDetail" parameterType="ProductFilesVO" resultType="ProductFilesVO">
+		SELECT * FROM PRODUCTFILES WHERE FILENUM=#{fileNum}
+	</select>
+
+	<delete id="setFileDelete" parameterType="ProductFilesVO">
+		DELETE FROM PRODUCTFILES WHERE FILENUM=#{fileNum}
+	</delete>
 
 	<update id="setUpdate" parameterType="ProductVO">
-		UPDATE PRODUCT SET PRODUCTNAME=#{productName}, PRODUCTCOUNT=#{productCount}, PRODUCTPRICE=#{productPrice}
+		UPDATE PRODUCT SET 
+			PRODUCTNAME=#{productName}, 
+			PRODUCTCOUNT=#{productCount}, 
+			PRODUCTPRICE=#{productPrice},
+			PRODUCTDETAIL=#{productDetail}
 		WHERE PRODUCTNUM=#{productNum}
 	
 	</update>
-
-
 	
 	<select id="getDetail" parameterType="ProductVO" resultMap="listResult">
 		SELECT P.*,PF.*

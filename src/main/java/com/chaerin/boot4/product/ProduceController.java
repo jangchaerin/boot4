@@ -28,14 +28,28 @@ public class ProduceController {
 	@Autowired
 	private ProductService productService;
 	
+	@PostMapping("fileDelete")
+	public ModelAndView setFileDelete(ProductFilesVO productFilesVO) throws Exception{
+		ModelAndView mv = new ModelAndView();
+		int result = productService.setFileDelete(productFilesVO);
+		//System.out.println(productFilesVO.getFileNum());
+	
+		mv.addObject("result",result);	//0 또는 1보냄
+		mv.setViewName("common/result2");
+		return mv;
+	}
+	
 	@PostMapping("update")
 	public ModelAndView setUpdate(ProductVO productVO,MultipartFile []files) throws Exception{
 		ModelAndView mv = new ModelAndView();
-	//	int result=productService.setUpdate(productVO);
-		System.out.println("Update");
-		
-		
-		mv.setViewName("product/update");
+		int result=productService.setUpdate(productVO,files);
+		if(result>0) {
+			mv.setViewName("redirect:./manage");			
+		}else {
+			mv.setViewName("common/getResult");
+			mv.addObject("msg", "update 실패");
+			mv.addObject("path", "./manageDetail?productNum="+productVO.getProductNum());
+		}
 		return mv;
 	}
 	@GetMapping("update")
@@ -116,10 +130,10 @@ public class ProduceController {
 		productVO.setId(memberVO.getId());
 	
 		
-		   for(MultipartFile f: files) {
-			      System.out.println(f.getOriginalFilename());
-			      System.out.println(f.getSize());
-			   }
+//		   for(MultipartFile f: files) {
+//			      System.out.println(f.getOriginalFilename());
+//			      System.out.println(f.getSize());
+//			   }
 		
 		int result = productService.add(productVO,files);
 		mv.setViewName("common/result2");
