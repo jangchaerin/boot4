@@ -24,6 +24,20 @@ public class MemberController {
 		return "member";
 	}
 	
+	@GetMapping("findId")
+	public ModelAndView findId(MemberVO memberVO) throws Exception{
+		ModelAndView mv= new ModelAndView();
+		mv.setViewName("member/findId");	
+		return mv;
+	}
+	@PostMapping("findId")
+	public ModelAndView findId(MemberVO memberVO,ModelAndView mv) throws Exception{
+		memberVO = memberService.findId(memberVO);
+		mv.addObject("idResult", memberVO);
+		mv.setViewName("member/findIdResult");
+		return mv;
+	}
+	
 	@PostMapping("join")
 	public ModelAndView setJoin(MemberVO memberVO, MultipartFile file)throws Exception{
 		ModelAndView mv= new ModelAndView();
@@ -57,8 +71,9 @@ public class MemberController {
 		return mv;
 	}
 	@GetMapping("login")
-	public ModelAndView getLogin() throws Exception{
+	public ModelAndView getLogin(@ModelAttribute MemberVO memberVO) throws Exception{
 		ModelAndView mv= new ModelAndView();
+		mv.addObject("vo", new MemberVO());
 		mv.setViewName("member/login");
 		return mv;
 	}

@@ -24,6 +24,10 @@ public interface MemberMapper {
 	//delete : 회원탈퇴
 	public int setDelete(MemberVO memberVO)throws Exception;
 	
+	//findId
+	public MemberVO findId(MemberVO memberVO)throws Exception;
+	
+	
 	//memberrole
 	//insert
 	public int setRoleJoin(Map<String, String> map)throws Exception;

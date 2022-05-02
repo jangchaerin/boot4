@@ -6,6 +6,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<c:import url="../temp/header_script.jsp"></c:import>
 
 <!-- Bootstrap CSS -->
 <link
@@ -17,6 +18,8 @@
 </head>
 <body>
 <c:import url="../temp/header.jsp"></c:import>
+
+
 
 <form action="./login" method="post">
 	
@@ -38,14 +41,20 @@
 		<div class="row justify-content-end">
 			<button type="submit" class="col-1 btn btn-primary ">Login!!</button>
 		</div>
+		
+		<div class="row">
+			<button type="button" id="find" class="col-1 btn btn-danger ">아이디찾기</button>
+		
+		</div>
 	</div>
-	
 	</form>
 
+		
+<script type="text/javascript">
+	$("#find").click(function(){
+		location.href="./findId";
+	})	//location자체가 get방식
 
-<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-		integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-		crossorigin="anonymous"></script>
+</script>
 </body>
 </html>

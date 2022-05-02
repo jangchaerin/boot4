@@ -23,6 +23,10 @@ public class MemberService {
 	@Value("${member.role.member}")
 	private String memberRole;
 	
+	public MemberVO findId(MemberVO memberVO)throws Exception{
+		return memberMapper.findId(memberVO);
+	}
+	
 	public int setJoin(MemberVO memberVO, MultipartFile file)throws Exception{
 		int result=memberMapper.setJoin(memberVO);
 		
