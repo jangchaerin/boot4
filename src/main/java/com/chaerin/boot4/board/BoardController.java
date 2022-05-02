@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-
+import com.chaerin.boot4.product.ProductFilesVO;
 import com.chaerin.boot4.util.Pager;
 
 
@@ -30,6 +30,16 @@ public class BoardController {
 		return "board";
 	}
 		
+	@PostMapping("fileDelete")
+	public ModelAndView setFileDelete(BoardFilesVO boardFilesVO) throws Exception{
+		ModelAndView mv = new ModelAndView();
+		int result = boardService.setFileDelete(boardFilesVO);
+		//System.out.println(productFilesVO.getFileNum());
+	
+		mv.addObject("result",result);	//0 또는 1보냄
+		mv.setViewName("common/result2");
+		return mv;
+	}
 	
 	@GetMapping("summerFileDelete")
 	public ModelAndView setSummerFileDelte(String fileName)throws Exception{
@@ -103,8 +113,8 @@ public class BoardController {
 	}
 	
 	@PostMapping("update")
-	public String setUpdate(BoardVO boardVO) throws Exception{
-		int result = boardService.setUpdate(boardVO);
+	public String setUpdate(BoardVO boardVO,MultipartFile []files ) throws Exception{
+		int result = boardService.setUpdate(boardVO,files);
 		
 		return "redirect:./list";
 	}

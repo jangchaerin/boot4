@@ -62,7 +62,7 @@
 	<script type="text/javascript">
 			
 	    summernoteInit("contents","");		
-		
+	    fileAddInit(${vo.filesVOs.size()});
 		
 		
 		

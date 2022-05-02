@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.chaerin.boot4.product.ProductFilesVO;
 import com.chaerin.boot4.util.FileManager;
 import com.chaerin.boot4.util.Pager;
 
@@ -60,8 +61,32 @@ public class BoardService {
 		return boardMapper.getDetail(boardVO);
 	}
 	
-	public int setUpdate(BoardVO boardVO) throws Exception{
-		return boardMapper.setUpdate(boardVO);
+	public int setUpdate(BoardVO boardVO,MultipartFile []multipartFiles ) throws Exception{
+		int result = boardMapper.setUpdate(boardVO);
+		
+		if(multipartFiles != null) {
+			
+			for(MultipartFile multipartFile: multipartFiles) {
+				if(multipartFile.isEmpty()) {
+					continue;
+				}
+				
+				BoardFilesVO boardFilesVO = new BoardFilesVO();
+						
+				String fileName =fileManager.fileSave(multipartFile, "/resources/upload/board/");
+				boardFilesVO.setFileName(fileName);
+				boardFilesVO.setOriName(multipartFile.getOriginalFilename());
+				boardFilesVO.setNum(boardVO.getNum());
+				result = boardMapper.setFileAdd(boardFilesVO);
+				
+			}
+			
+			
+		}
+		
+		
+		return result;
+		
 	}
 	public int setDelete(BoardVO boardVO) throws Exception{
 		
@@ -108,6 +133,19 @@ public class BoardService {
 		}
 		
 		return result;
+	}
+	
+	public int setFileDelete(BoardFilesVO boardFilesVO) throws Exception{
+		boardFilesVO = boardMapper.getFileDetail(boardFilesVO);
+		
+		int check=boardMapper.setFileDelete(boardFilesVO);
+		if(check>0) {
+			boolean result = fileManager.remove(boardFilesVO.getFileName(), "../resources/upload/board/");
+		}
+		
+		return check;
+		
+		
 	}
 	
 

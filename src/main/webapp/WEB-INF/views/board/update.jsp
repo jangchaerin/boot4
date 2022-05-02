@@ -7,17 +7,20 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<!-- Bootstrap CSS -->
+<c:import url="../temp/header_css.jsp"></c:import>
+<c:import url="../temp/header_script.jsp"></c:import>
+<!-- 에디터 -->
 <link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
-	crossorigin="anonymous">
+	href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css"
+	rel="stylesheet">
+<script
+	src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+
 <title>Insert title here</title>
 </head>
 <body>
 	<c:import url="../temp/header.jsp"></c:import>
-			<form action="./update" method="post">
+			<form action="./update" method="post" enctype="multipart/form-data">
 	<div class="container">
 
 			<div class="container mt-4">
@@ -44,26 +47,34 @@
 					<textarea class="form-control" id="contents" name="contents">${vo.contents}</textarea>
 				</div>
 
-				<!-- <div class="mb-3">
-					<input class="form-control form-control-lg" type="file"
-						name="files">
-				</div>
-				<div class="mb-3">
-					<input class="form-control form-control-lg" type="file"
-						name="files">
-				</div> -->
+				<button type="button" id="fileAdd" class="btn btn-primary">FileAdd</button>
+	
+	<div>
+	<c:forEach items="${vo.filesVOs}" var="fileVO">
+		<h4>${fileVO.oriName}<button type="button" class="del" data-num="${fileVO.fileNum}">Delete</button></h4>
+	</c:forEach>
+	</div>
 
-				<div class="row justify-content-end">
-					<button type="submit" class="col-1 btn btn-primary ">Submit</button>
+
+			<div id="fileResult"></div>
+
+			
+
+			
+		<div class="row justify-content-end">
+					<button type="submit" class="col-1 btn btn-primary ">Update!!!!</button>
 
 				</div>
 				</div>
 			</div>
 		</form>
 
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-		integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-		crossorigin="anonymous"></script>
+<script type="text/javascript" src="../resources/js/fileAdd.js"></script> <!-- fileAdd -->
+<script type="text/javascript" src="../js/summernote.js"></script>   <!-- summernote -->
+<script type="text/javascript">
+	summernoteInit("contents","${vo.contents}");
+	fileAddInit(${vo.filesVOs.size()})		
+	 fileDelteInit();
+</script>
 </body>
 </html>
