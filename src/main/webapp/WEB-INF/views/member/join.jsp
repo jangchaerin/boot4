@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,7 +21,8 @@
 
 
 	<div class="container mt-4">
-		<form action="./join" method="post" enctype="multipart/form-data">
+		<%-- <form action="./join" method="post" enctype="multipart/form-data"> --%>
+		<form:form modelAttribute="memberVO" method="post" enctype="multipart/form-data">
 			<div class="row mt-4 ">
 				<div class="alert alert-primary" role="alert">
 					<h4 class="text-center" style="text-transform: capitalize;">Member
@@ -28,28 +30,52 @@
 				</div>
 			</div>
 			<div class="mb-3">
-				<label for="exampleInputPassword1" class="form-label">ID</label> <input
-					type="text" class="form-control" id="id" name="id">
+				<label for="exampleInputPassword1" class="form-label">ID</label> 
+				<!-- <input type="text" class="form-control" id="id" name="id"> -->
+				<form:input path="id" cssClass="form-control" id="id"/>
+				<div>
+					<form:errors path="id"/>
+				</div>
 			</div>
 			<div class="mb-3">
 				<label for="exampleInputEmail1" class="form-label">PassWord</label>
-				<input type="password" class="form-control" id="pw"
-					aria-describedby="emailHelp" name="pw">
+			<!-- 	<input type="password" class="form-control" id="pw" aria-describedby="emailHelp" name="pw"> -->
+				<form:password path="pw" cssClass="form-control" id="pw"/>
+				<div>
+					<form:errors path="pw"/>
+				</div>
 			</div>
 			<div class="mb-3">
-				<label for="exampleInputPassword1" class="form-label">Name</label> <input
-					type="text" class="form-control" id="name"
-					aria-describedby="emailHelp" name="name">
+				<label for="exampleInputEmail1" class="form-label">PassWord 확인</label>
+			<!-- 	<input type="password" class="form-control" id="checkPw" aria-describedby="emailHelp" name="checkPw"> -->
+				<form:password path="checkPw" cssClass="form-control" id="checkPw"/>
+				<div>
+					<form:errors path="checkPw"/>
+				</div>
 			</div>
 			<div class="mb-3">
-				<label for="exampleInputEmail1" class="form-label">E-Mail</label> <input
-					type="text" class="form-control" id="email"
-					aria-describedby="emailHelp" name="email">
+				<label for="exampleInputPassword1" class="form-label">Name</label> 
+				<!-- <input type="text" class="form-control" id="name" aria-describedby="emailHelp" name="name"> -->
+				<form:input path="name" cssClass="form-control" id="name"/>
+				<div>
+					<form:errors path="name"/>
+				</div>
 			</div>
 			<div class="mb-3">
-				<label for="exampleInputEmail1" class="form-label">Phone</label> <input
-					type="text" class="form-control" id="phone"
-					aria-describedby="emailHelp" name="phone">
+				<label for="exampleInputEmail1" class="form-label">E-Mail</label> 
+				<!-- <input type="text" class="form-control" id="email" aria-describedby="emailHelp" name="email"> -->
+				<form:input path="email" cssClass="form-control" id="email"/>
+				<div>
+					<form:errors path="email"/>
+				</div>
+			</div>
+			<div class="mb-3">
+				<label for="exampleInputEmail1" class="form-label">Phone</label> 
+				<!-- <input type="text" class="form-control" id="phone" aria-describedby="emailHelp" name="phone"> -->
+				<form:input path="phone" cssClass="form-control" id="phone"/>
+				<div>
+					<form:errors path="phone"/>
+				</div>
 			</div>
 			<div class="mb-3">
 				<input class="form-control form-control-lg" type="file" name="file">
@@ -60,7 +86,8 @@
 				<button type="submit" class="col-1 btn btn-primary ">Join!!</button>
 			</div>
 			
-			</form>
+		<%-- 	</form> --%>
+		</form:form>
 
 			<div class="row mt-4">
 				<div class="form-check">

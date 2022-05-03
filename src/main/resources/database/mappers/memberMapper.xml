@@ -6,6 +6,9 @@
     
 <mapper namespace="com.chaerin.boot4.member.MemberMapper">
 	<!-- member  -->
+	<select id="getId" parameterType="MemberVO" resultType="MemberVO">
+		SELECT ID FROM MEMBER WHERE ID=#{id}
+	</select>
 	<select id="findId" parameterType="MemberVO" resultType="MemberVO">
 		SELECT ID FROM MEMBER WHERE EMAIL=#{email}
 	</select>

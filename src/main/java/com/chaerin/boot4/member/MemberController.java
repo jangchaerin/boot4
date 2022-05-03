@@ -2,9 +2,12 @@ package com.chaerin.boot4.member;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -39,21 +42,40 @@ public class MemberController {
 	}
 	
 	@PostMapping("join")
-	public ModelAndView setJoin(MemberVO memberVO, MultipartFile file)throws Exception{
+	public ModelAndView setJoin(@Valid MemberVO memberVO,BindingResult bindingResult, MultipartFile file)throws Exception{
 		ModelAndView mv= new ModelAndView();
+		
+//		if(bindingResult.hasErrors()) {
+//			mv.setViewName("member/join");
+//			return mv;
+//		}
+		
+		//사용자정의 검증 메소드 호출
+		if(memberService.memberError(memberVO, bindingResult)) {
+			mv.setViewName("member/join");
+			return mv;
+		}
+		
 		int result = memberService.setJoin(memberVO,file);
 		mv.setViewName("redirect:../");
 		return mv;
 	}
 	@GetMapping("join")
-	public ModelAndView setJoin()throws Exception{
+	public ModelAndView setJoin(@ModelAttribute MemberVO memberVO)throws Exception{
 		ModelAndView mv= new ModelAndView();
 		mv.setViewName("member/join");
 		return mv;
 	}
 	@PostMapping("login")
-	public ModelAndView getLogin(MemberVO memberVO, HttpSession session,HttpServletResponse response) throws Exception{
+	public ModelAndView getLogin( MemberVO memberVO,
+								HttpSession session,HttpServletResponse response) throws Exception{
 		ModelAndView mv= new ModelAndView();
+		
+//		if(bindingResult.hasErrors()) {
+//			mv.setViewName("member/login");
+//			return mv ;
+//		}
+//		
 		memberVO=memberService.getLogin(memberVO);
 		
 		String message = "로그인 실패";

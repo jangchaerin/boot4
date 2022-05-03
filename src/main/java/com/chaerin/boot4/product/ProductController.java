@@ -3,9 +3,11 @@ package com.chaerin.boot4.product;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,7 +20,7 @@ import com.chaerin.boot4.util.Pager;
 
 @Controller
 @RequestMapping("product/*")
-public class ProduceController {
+public class ProductController {
 	
 	@ModelAttribute("board")
 	public String getBoard() {
@@ -122,8 +124,13 @@ public class ProduceController {
 		return mv;
 	}
 	@PostMapping("add")
-	public ModelAndView add(ProductVO productVO,MultipartFile[] files, HttpSession session)throws Exception{
+	public ModelAndView add(@Valid ProductVO productVO,BindingResult bindingResult,MultipartFile[] files, HttpSession session)throws Exception{
 		ModelAndView mv = new ModelAndView();
+		if(bindingResult.hasErrors()) {
+			mv.setViewName("product/add");
+			return mv;
+		}
+		
 		//session에서 로그인한 아이디를 꺼내서 productVO에 넣기
 		System.out.println("sale:"+productVO.getSale());
 		MemberVO memberVO = (MemberVO)session.getAttribute("member");
@@ -142,7 +149,7 @@ public class ProduceController {
 	}
 	
 	@GetMapping("add")
-	public ModelAndView add(ProductVO productVO,ModelAndView mv) throws Exception{	
+	public ModelAndView add(@ModelAttribute ProductVO productVO,ModelAndView mv) throws Exception{	
 		mv.setViewName("product/add");
 		return mv;
 	}

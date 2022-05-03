@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,8 +22,8 @@
 
 
 
-<form action="./login" method="post">
-	
+<!--<form action="./login" method="post">         HTML 태그 대신 SPRING Form tag 사용-->
+<form:form modelAttribute="memberVO" method="POST" >
 	<div class="container mt-4">
 		<div class="row mt-4 ">
 			<div class="alert alert-primary" role="alert">
@@ -31,11 +32,19 @@
 		</div>
 		<div class="mb-3">
 			<label for="exampleInputPassword1" class="form-label">ID</label> 
-			<input type="text" class="form-control" id="name" name ="id">
+			<!-- <input type="text" name ="id" class="form-control" id="id" > -->
+			<form:input path="id" cssClass="form-control" id="id"/><!-- path는 name(파라미터 이름)과 동일 하다.-->
+			<div>
+				<form:errors path="id"></form:errors>
+			</div>
 		</div>
 		<div class="mb-3">
 			<label for="exampleInputEmail1" class="form-label">PassWord</label> 
-			<input type="password" class="form-control" id="pw" aria-describedby="emailHelp" name = "pw">
+			<!-- <input type="password" class="form-control" id="pw" aria-describedby="emailHelp" name = "pw"> -->
+			<form:password path="pw" cssClass="form-control" id="pw"/>
+			<div>
+				<form:errors path="pw" cssStyle="color:red"></form:errors>
+			</div>
 		</div>
 		
 		<div class="row justify-content-end">
@@ -47,7 +56,8 @@
 		
 		</div>
 	</div>
-	</form>
+	</form:form>
+	<!--</form>-->
 
 		
 <script type="text/javascript">

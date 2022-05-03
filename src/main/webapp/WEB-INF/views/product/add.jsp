@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,7 +30,8 @@
 	<div class="container mt-4">
 
 
-		<form action="add" method="post" enctype="multipart/form-data">
+		<!-- <form action="add" method="post" enctype="multipart/form-data"> -->
+		<form:form modelAttribute="productVO" method="post" enctype="multipart/form-data">
 
 			<div class="row mt-4 ">
 				<div class="alert alert-primary" role="alert">
@@ -42,33 +44,53 @@
 
 
 			<div class="mb-3">
-				<label for="exampleInputPassword1" class="form-label">Name</label> <input
-					type="text" class="form-control" id="name" name="productName">
+				<label for="exampleInputPassword1" class="form-label">Name</label> 
+				<!-- <input type="text" class="form-control" id="name" name="productName"> -->
+				<form:input path="productName" cssClass="form-control" id="name"/>
+				<div>
+					<form:errors path="productName"></form:errors>
+				</div>
 			</div>
 			<div class="mb-3">
-				<label for="exampleInputEmail1" class="form-label">Price</label> <input
-					type="text" class="form-control" id="price"
-					aria-describedby="emailHelp" name="productPrice">
+				<label for="exampleInputEmail1" class="form-label">Price</label> 
+				<!-- <input type="text" class="form-control" id="price" aria-describedby="emailHelp" name="productPrice"> -->
+				<form:input path="productPrice" cssClass="form-control" id="price"/>
+				<div>
+					<form:errors path="productPrice"></form:errors>
+				</div>
 			</div>
 			<div class="mb-3">
-				<label for="exampleInputEmail1" class="form-label">Count</label> <input
-					type="text" class="form-control" id="count"
-					aria-describedby="emailHelp" name="productCount">
+				<label for="exampleInputEmail1" class="form-label">Count</label> 
+				<!-- <input type="text" class="form-control" id="count" aria-describedby="emailHelp" name="productCount"> -->
+				<form:input path="productCount" cssClass="form-control" id="count"/>
+				<div>
+					<form:errors path="productCount"></form:errors>
+				</div>
 			</div>
 			<div class="mb-3">
 				<label for="exampleInputPassword1" class="form-label">Detail</label>
-				<textarea class="form-control" id="detail" name="productDetail"></textarea>
+				<!-- <textarea class="form-control" id="detail" name="productDetail"></textarea> -->
+				<form:textarea path="productDetail" cssClass="form-control" id="detail"/>
+				<div>
+					<form:errors path="productDetail"></form:errors>
+				</div>
 			</div>
 			<div class="mb-3">
 				<div class="form-check">
-					<input class="form-check-input sale" type="radio"
-						name="sale" value="1" id="flexRadioDefault1"> <label
-						class="form-check-label" for="flexRadioDefault1"> 판매</label>
+					<!-- <input class="form-check-input sale" type="radio"
+						name="sale" value="1" id="flexRadioDefault1"> --> 
+						<form:radiobutton path="sale" cssClass="form-check-input sale" value="1" id="flexRadioDefault1"/>
+						<label class="form-check-label" for="flexRadioDefault1"> 판매</label>
+					
 				</div>
 				<div class="form-check">
-					<input class="form-check-input sale" type="radio"
-						name="sale" value="0" id="flexRadioDefault2" checked> <label
-						class="form-check-label" for="flexRadioDefault2"> 판매중지</label>
+					<!-- <input class="form-check-input sale" type="radio"
+						name="sale" value="0" id="flexRadioDefault2" checked>  -->
+						<form:radiobutton path="sale" cssClass="form-check-input sale" value="0" id="flexRadioDefault2"/>
+						<label class="form-check-label" for="flexRadioDefault2"> 판매중지</label>
+				</div>
+				<div>
+					<form:errors path="sale"></form:errors>
 				</div>
 			</div>
 
@@ -79,11 +101,12 @@
 			<div id="fileResult"></div>
 
 			<div class="row justify-content-end mt-5">
-				<button type="button" id="add" class="col-1 btn btn-primary">Product
+				<button type="submit" id="add2" class="col-1 btn btn-primary">Product
 					Add</button>
 			</div>
 
-		</form>
+		<!-- </form> -->
+		</form:form>
 	</div>
 
 

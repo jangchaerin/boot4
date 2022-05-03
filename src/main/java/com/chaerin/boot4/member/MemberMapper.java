@@ -9,6 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 @Mapper 
 public interface MemberMapper {
 	//member
+	public MemberVO getId(MemberVO memberVO) throws Exception;
 	//insert : join
 	public int setJoin(MemberVO memberVO) throws Exception;
 	
