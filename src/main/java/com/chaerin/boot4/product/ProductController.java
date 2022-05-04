@@ -1,13 +1,19 @@
 package com.chaerin.boot4.product;
 
+
+import java.sql.SQLException;
+import java.util.InputMismatchException;
+
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.properties.bind.BindException;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -66,6 +72,11 @@ public class ProductController {
 	
 	@GetMapping("detail")	//상세설명 페이지
 	public ModelAndView getDetail(ProductVO productVO) throws Exception{
+//		if(productVO.getId()==null) {
+//			//throw new NullPointerException();
+//			throw new SQLException();
+//		}
+		
 		//parameter는 productNum
 		//모든 구매자가 볼수있음
 		ModelAndView mv = new ModelAndView();
@@ -167,7 +178,40 @@ public class ProductController {
 		return mv;
 	
 	}
-	
+//	//예외처리 메소드
+//	//@ExceptionHandler(BindException.class)
+//	public ModelAndView ex1() {
+//		ModelAndView mv=new ModelAndView();
+//		System.out.println("예외발생");
+//		
+//		mv.setViewName("error/error");
+//		return mv;
+//	}
+//	
+//	@ExceptionHandler(NullPointerException.class)
+//	public ModelAndView ex2() {
+//		ModelAndView mv=new ModelAndView();
+//		System.out.println("nullpointer 예외발생");
+//		
+//		mv.setViewName("error/error");
+//		return mv;
+//	}
+//	@ExceptionHandler(Exception.class)
+//	public ModelAndView ex3() {
+//		ModelAndView mv=new ModelAndView();
+//		System.out.println("exception 예외발생");
+//		
+//		mv.setViewName("error/error");
+//		return mv;
+//	}
+//	@ExceptionHandler(Throwable.class)
+//	public ModelAndView ex4() {
+//		ModelAndView mv=new ModelAndView();
+//		System.out.println("throwable 예외발생");
+//		
+//		mv.setViewName("error/error");
+//		return mv;
+//	}
 	
 
 }
