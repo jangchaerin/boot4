@@ -28,8 +28,13 @@
 
 
 
-
-
+<div class="container">
+	<div class="row">
+		<button>
+			장바구니
+		</button>	
+	</div>	
+</div>
 
 <c:import url="../temp/header_script.jsp"></c:import>
 
